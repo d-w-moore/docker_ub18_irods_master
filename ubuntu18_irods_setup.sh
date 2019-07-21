@@ -28,7 +28,7 @@ elif [ "$choice" = install_irods_prereqs ]; then
 
 elif [ "$choice" = compile_irods ]; then
 
-  cd ~/github
+  cd ~/github/build__irods
   PATH=/opt/irods-externals/cmake3.11.4-0/bin:$PATH
   cmake -GNinja ../irods -DCMAKE_BUILD_TYPE=Debug
   ninja package
