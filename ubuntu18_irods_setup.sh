@@ -33,9 +33,10 @@ elif [ "$choice" = compile_irods ]; then
   cmake -GNinja ../irods -DCMAKE_BUILD_TYPE=Debug
   ninja package
   ~/github/rodcycle/reinstall.sh -C --i=4.3.0  --w=basic 4
-  cd ../build*cli*
-  cmake -GNinja ../irods_client_icommands -DCMAKE_BUILD_TYPE=Debug
-  ninja package
+  cd ~/github/build__irods_client_icommands && \
+  echo -e '************************\n** building icommands **\n************************' && \
+  cmake -GNinja ../irods_client_icommands -DCMAKE_BUILD_TYPE=Debug && \
+  ninja package && \
   ~/github/rodcycle/reinstall.sh -C --i=4.3.0   4 5
 
 else
