@@ -28,16 +28,23 @@ elif [ "$choice" = install_irods_prereqs ]; then
 
 elif [ "$choice" = compile_irods ]; then
 
-  cd ~/github/build__irods
   PATH=/opt/irods-externals/cmake3.11.4-0/bin:$PATH
-  cmake -GNinja ../irods -DCMAKE_BUILD_TYPE=Debug
-  ninja package
-  ~/github/rodcycle/reinstall.sh -C --i=4.3.0  --w=basic 4
+
+  cd ~/github/build__irods && \
+  echo -e '*********************************\n** building irods server and runtime **\n******************************' && \
+  cmake -GNinja ../irods -DCMAKE_BUILD_TYPE=Debug && \
+  ninja package && \
+  ~/github/rodcycle/reinstall.sh -C --i=4.3.0 --w=basic 4
+
+  [ $? -eq 0 ] || { echo >&2 "failed to compile."; exit 1; }
+
   cd ~/github/build__irods_client_icommands && \
   echo -e '************************\n** building icommands **\n************************' && \
   cmake -GNinja ../irods_client_icommands -DCMAKE_BUILD_TYPE=Debug && \
   ninja package && \
-  ~/github/rodcycle/reinstall.sh -C --i=4.3.0   4 5
+  ~/github/rodcycle/reinstall.sh -C --i=4.3.0 4 5
+
+  [ $? -eq 0 ] || { echo >&2 "failed to compile."; exit 1; }
 
 else
 
