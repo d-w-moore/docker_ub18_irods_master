@@ -1,6 +1,19 @@
 #!/bin/bash
 
-if [ "$1" = setup ]; then
+choice="$1"
+
+MENU=(
+  build_dir_setup
+  install_irods_prereqs
+  compile_irods
+)
+
+if [ ! "$choice" ] ; then
+  echo  -n "OPTIONS : ${MENU[*]} -> "
+  read choice
+fi
+
+if [ "$choice" = build_dir_setup ]; then
 
   mkdir ~/github  &&  cd ~/github && \
   git clone http://github.com/irods/irods && \
@@ -9,9 +22,11 @@ if [ "$1" = setup ]; then
   cd ~/github/irods && git submodule update --init ; cd ~/github
   for x in irods*/ ; do mkdir build__$x;done
 
+elif [ "$choice" = install_irods_prereqs ]; then
+
   ~/github/rodcycle/reinstall.sh -C --i=4.3.0 --w='config-essentials add-build-externals create-db'
 
-elif [ "$1" = compile ]; then
+elif [ "$choice" = compile_irods ]; then
 
   cd ~/github
   PATH=/opt/irods-externals/cmake3.11.4-0/bin:$PATH
@@ -25,6 +40,6 @@ elif [ "$1" = compile ]; then
 
 else
 
-  echo >&2 "unrecognized subcommand '$1'"
+  echo >&2 "Unrecognized choice: '$choice'"
 
 fi
