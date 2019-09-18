@@ -34,7 +34,7 @@ elif [[ "$choice" = *\ install_irods_prereqs\ * ]]; then
 
   "$INSTALL_SCRIPT" -C --i=4.3.0 --w='config-essentials add-build-externals create-db'
 
-elif [ "$choice" = *\ build_irods_packages\ * ]; then
+elif [[ "$choice" = *\ build_irods_packages\ * ]]; then
 
   PATH=/opt/irods-externals/cmake3.11.4-0/bin:$PATH
 
