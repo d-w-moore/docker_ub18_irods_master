@@ -16,8 +16,9 @@ if [ ! "$choice" ] ; then
   echo  -n "OPTIONS : ${MENU[*]} -> "
   read choice
 elif [ "$choice" = '*' ]; then
-  choice=" ${MENU[*]} "
+  choice="${MENU[*]}"
 fi
+choice=" $choice "
 
 if [[ "$choice" = *\ setup_build_dirs\ * ]]; then
 
